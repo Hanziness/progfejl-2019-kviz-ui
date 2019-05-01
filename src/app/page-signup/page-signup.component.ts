@@ -4,8 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 interface FormData {
   username : string,
-  password : string,
-  termsAccepted : boolean
+  password : string
 }
 
 @Component({
@@ -26,8 +25,7 @@ export class PageSignupComponent implements OnInit {
   ngOnInit() {
     this.formData = {
       "username": "",
-      "password": "",
-      "termsAccepted": false
+      "password": ""
     };
 
     if (this.dataShareService.sharedUsername) {
@@ -37,8 +35,7 @@ export class PageSignupComponent implements OnInit {
 
     this.formGroup = new FormGroup({
       'username': new FormControl(this.formData.username, [ Validators.required ]),
-      'password': new FormControl(this.formData.password, [ Validators.required ]),
-      'termsAccepted': new FormControl(this.formData.termsAccepted, [ Validators.required ])
+      'password': new FormControl(this.formData.password, [ Validators.required ])
     })
 
   }
