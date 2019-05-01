@@ -3,22 +3,36 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
-// Bootstrap JS components
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+
+import { NavbarComponent } from './navbar/navbar.component';
+import { WelcomeHeroComponent } from './welcome-hero/welcome-hero.component';
+import { PageIndexComponent } from './page-index/page-index.component';
+import { PageQuizlistComponent } from './page-quizlist/page-quizlist.component';
+import { PageQuizfillComponent } from './page-quizfill/page-quizfill.component';
+import { PageLeaderboardComponent } from './page-leaderboard/page-leaderboard.component';
+import { PageLoginComponent } from './page-login/page-login.component';
+import { PageSignupComponent } from './page-signup/page-signup.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    WelcomeHeroComponent,
+    PageIndexComponent,
+    PageQuizlistComponent,
+    PageQuizfillComponent,
+    PageLeaderboardComponent,
+    PageLoginComponent,
+    PageSignupComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
