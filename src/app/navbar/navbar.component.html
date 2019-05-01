@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <span class="navbar-brand mb-0 h1"><i class="brand-icon fas fa-brain"></i> Kvíz</span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-toggle" aria-controls="navbar-toggle" aria-expanded="false" aria-label="Menü megnyitása" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed">
+      <span class="fas fa-bars"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbar-toggle" [ngbCollapse]="isCollapsed">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a [routerLink]="[ '/index' ]" routerLinkActive="active" class="nav-link">Kezdőlap</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="[ '/quiz' ]" routerLinkActive="active" class="nav-link">Kvízek</a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="[ '/leaderboard' ]" routerLinkActive="active" class="nav-link">Ranglista</a>
+      </li>
+    </ul>
+    <button class="btn btn-outline-light" [routerLink]="[ '/login' ]" routerLinkActive="disabled"><i class="far fa-user"></i> Bejelentkezés</button>
+  </div>
+</nav>

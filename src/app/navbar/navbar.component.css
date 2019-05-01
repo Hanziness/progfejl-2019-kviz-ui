@@ -1,0 +1,7 @@
+.brand-icon {
+	background: white;
+    color: var(--blue);
+    padding: 3px;
+    border-radius: .25rem;
+    margin-right: 2px;
+}
