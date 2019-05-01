@@ -1,0 +1,19 @@
+.hero-input-name {
+	border: none;
+	background: none;
+	border-bottom: 1px solid grey;
+	border-radius: 0;
+	font-size: 3.2rem;
+	color: #0069c0;
+	padding-left: 0px;
+
+	transition: border-bottom 200ms ease-out;
+}
+
+.hero-input-name:focus {
+	background: none;
+	box-shadow: none;
+	border-bottom-color: black;
+	border-bottom-width: 3px;
+	color: #0069c0;
+}

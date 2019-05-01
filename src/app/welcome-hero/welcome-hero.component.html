@@ -1,0 +1,12 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">
+      <form class="form-inline">
+        <label>Helló, &nbsp;</label>
+        <input name="regUsername" type="text" class="form-control form-control-lg mb-2 mr-sm-2 hero-input-name" id="registerName" placeholder="{{ randomName }}" [(ngModel)]="regUsername">
+      </form>
+    </h1>
+    <p class="lead">Ez egy kvízalkalmazás. Játssz te is!</p>
+    <button class="btn btn-primary btn-lg" (click)="register()">Gyerünk!</button>
+  </div>
+</div>
