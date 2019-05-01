@@ -1,0 +1,11 @@
+input.prefilled:not(.ng-dirty) {
+	border-color: var(--blue);
+}
+
+input.ng-valid[required], input.ng-valid.required {
+	border-color: var(--success);
+}
+
+input.ng-invalid.ng-dirty {
+	border-color: var(--danger);
+}

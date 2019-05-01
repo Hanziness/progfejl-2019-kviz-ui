@@ -1,0 +1,24 @@
+<div class="container add-top-margin">
+    <div class="card">
+    <h5 class="card-header">Regisztráció</h5>
+    <div class="card-body">
+      <form name="signupForm">
+        <div class="form-group">
+          <label for="reg-username">Név</label>
+          <input type="text" name="username" class="form-control" id="reg-username" placeholder="Teszt Elek" [(ngModel)]="formData.username" [ngClass]="{'prefilled': prefilled }" required>
+          <small id="reg-usernameHelp" class="form-text text-muted">Ez a név fog megjelenni a ranglistán.</small>
+        </div>
+        <div class="form-group">
+            <label for="reg-password">Jelszó</label>
+            <input type="password" name="password" class="form-control" id="reg-password" placeholder="abcd1234" [(ngModel)]="formData.password" required>
+            <small id="reg-passwordHelp" class="form-text text-muted">Lehetőleg valami értelmes jelszót válassz.</small>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" name="termsAccepted" class="form-check-input" [(ngModel)]="formData.termsAccepted" required>
+          <label class="form-check-label" for="exampleCheck1">Elfogadom a nemlétező felhasználási feltételeket és eladom az adataimat a Facebooknak. <i class="far fa-grimace"></i></label>
+        </div>
+      </form>
+      <button class="btn btn-primary">Regisztráció</button>
+  </div>
+  </div>
+</div>
