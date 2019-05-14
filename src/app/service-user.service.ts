@@ -22,12 +22,15 @@ export class ServiceUserService {
     let req = this.httpClient.post("http://localhost:5000/login", {
       username: username,
       password: password
-    });
+    }, { responseType: 'text' });
 
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
       console.debug(data);
       this.loggedInUserName = username;
+    }, (error) => {
+      console.error("Login failed:")
+      console.error(error);
     });
 
     return req;
@@ -37,12 +40,15 @@ export class ServiceUserService {
     let req = this.httpClient.post("http://localhost:5000/register", {
       username: username,
       password: password
-    });
+    }, { responseType: 'text' });
 
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
       console.debug(data);
       this.loggedInUserName = username;
+    }, (error) => {
+      console.error("Registration failed:")
+      console.error(error);
     });
 
     return req;
