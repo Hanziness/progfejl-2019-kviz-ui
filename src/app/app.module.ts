@@ -17,6 +17,7 @@ import { PageLoginComponent } from './page-login/page-login.component';
 import { PageSignupComponent } from './page-signup/page-signup.component';
 import { PageQuizlistItemComponent } from './page-quizlist-item/page-quizlist-item.component';
 import { AlertQuizComponent } from './alert-quiz/alert-quiz.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AlertQuizComponent } from './alert-quiz/alert-quiz.component';
     AlertQuizComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

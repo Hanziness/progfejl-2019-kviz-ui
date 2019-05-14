@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ServiceUserService } from './service-user.service';
+import { Observable } from 'rxjs';
 
 export interface Question {
   leiras: string,
@@ -15,10 +18,48 @@ export interface Answer {
 })
 export class ServiceQuizService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient, private userService : ServiceUserService) { }
+
+  public submitQuiz(qId : string, answers : Record<string, string>, quizObject : Record<string, Question>) : Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    let score : number = 0;
+
+    // Evaluate quiz
+    Object.keys(quizObject).forEach(key => {
+      quizObject[key].valaszok.forEach(answer => {
+        if (answer.nev === answers[key] && answer.helyes) {
+          score++;
+        }
+      });
+    });
+
+    return this.httpClient.post("http://localhost:5000", {
+      username: this.userService.loggedInUserName,
+      score: score
+    }, httpOptions);
+  }
 
   public getQuizForm = function(qId : string) : Record<string, Question> {
-    // TODO Implement using server-side communication
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    let req = this.httpClient.get("http://localhost:5000/quiz", {
+      name: qId
+    }, httpOptions);
+
+    req.subscribe((data : any) => {
+      console.debug("Received a quiz that looks like this:");
+      console.debug(data);
+    });
+
     return this.returnDummyQuiz();
   }
 
