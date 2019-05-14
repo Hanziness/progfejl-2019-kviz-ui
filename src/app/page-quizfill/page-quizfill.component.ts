@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Question, ServiceQuizService } from '../service-quiz.service';
 
 @Component({
   selector: 'app-page-quizfill',
@@ -8,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageQuizfillComponent implements OnInit {
 
-  qid : string;
+  objectKeys = Object.keys;
 
-  constructor() { }
+  qid : string;
+  quizForm : Record<string, Question>;
+
+  constructor(private quizService : ServiceQuizService) { }
 
   ngOnInit() {
+    this.quizForm = this.quizService.getQuizForm(this.qid);
   }
 
 }

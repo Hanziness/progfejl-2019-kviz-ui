@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card shadow-sm">
   <div class="card-body">
     <h5 class="card-title">{{ title }}</h5>
     <h6 class="card-subtitle mb-2 text-muted">{{ numquestions }} kérdés</h6>
@@ -7,7 +7,9 @@
       <li class="list-group-item">Eddigi legjobb pontszám: ??.</li>
   </ul>
   <div class="card-body">
-    <button class="card-link btn btn-primary"><i class="fas fa-pen"></i> Kitöltöm</button>
-    <button class="card-link btn btn-secondary" [routerLink]="[ '/leaderboard', qid ]"><i class="fas fa-list-ol"></i> Ranglista</button>
+    <!-- <div class="btn-group" role="group" aria-label="Műveletek"> -->
+      <button class="btn btn-primary btn-block" [routerLink]="[ '/fill', qid ]"><i class="fas fa-pen"></i> Kitöltöm</button>
+      <button class="btn btn-outline-info btn-block" [routerLink]="[ '/leaderboard', qid ]"><i class="fas fa-list-ol"></i> Ranglista</button>
+    <!-- </div> -->
   </div>
 </div>

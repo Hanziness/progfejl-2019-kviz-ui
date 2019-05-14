@@ -1,3 +1,14 @@
-<p>
-  page-quizfill works!
-</p>
+<div class="container add-top-margin">
+  <form>
+    <div class="form-group" *ngFor="let q of objectKeys(quizForm)">
+      <label>{{ quizForm[q].leiras }}</label>
+      <select class="form-control" name="{{ q }}">
+        <option *ngFor="let answer of quizForm[q].valaszok">
+          {{ answer.nev }}
+        </option>
+      </select>
+    </div>
+    <hr>
+    <button type="submit" class="shadow-sm btn btn-outline-primary mb-2 btn-block"><i class="fas fa-check-circle"></i> Beküldés</button>
+  </form>
+</div>
