@@ -16,6 +16,7 @@
         <a [routerLink]="[ '/leaderboard' ]" routerLinkActive="active" class="nav-link">Ranglista</a>
       </li> -->
     </ul>
-    <button class="btn btn-outline-light" [routerLink]="[ '/login' ]" routerLinkActive="disabled"><i class="far fa-user"></i> Bejelentkezés</button>
+    <button class="btn btn-outline-light" *ngIf="!this.userService.isLoggedIn()" [routerLink]="[ '/login' ]" routerLinkActive="disabled"><i class="far fa-user"></i> Bejelentkezés</button>
+    <button class="btn btn-outline-light" *ngIf="this.userService.isLoggedIn()" (click)="navbarLogout()"><i class="far fa-user"></i> Kijelentkezés</button>
   </div>
 </nav>

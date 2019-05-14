@@ -40,7 +40,7 @@ export class ServiceUserService {
     let req = this.httpClient.post("http://localhost:5000/register", {
       username: username,
       password: password
-    }, { responseType: 'text' });
+    }, { responseType: 'text', withCredentials: true });
 
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
@@ -55,7 +55,7 @@ export class ServiceUserService {
   }
 
   public logout() : Observable<any> {
-    let req = this.httpClient.post("http://localhost:5000/logout", { });
+    let req = this.httpClient.post("http://localhost:5000/logout", { }, { responseType: 'text', withCredentials: true});
 
     req.subscribe((data) => {
       this.loggedInUserName = undefined;

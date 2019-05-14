@@ -6,13 +6,14 @@ import { PageLeaderboardComponent } from './page-leaderboard/page-leaderboard.co
 import { PageLoginComponent } from './page-login/page-login.component';
 import { PageSignupComponent } from './page-signup/page-signup.component';
 import { PageQuizfillComponent } from './page-quizfill/page-quizfill.component';
+import { ActivateUserService } from './activate-user.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path:'index', component: PageIndexComponent },
   { path:'quiz', component: PageQuizlistComponent },
-  { path:'leaderboard/:quizId', component: PageLeaderboardComponent },
-  { path:'fill/:quizId', component: PageQuizfillComponent },
+  { path:'leaderboard/:quizId', component: PageLeaderboardComponent, canActivate: [ActivateUserService] },
+  { path:'fill/:quizId', component: PageQuizfillComponent, canActivate: [ActivateUserService] },
 
   { path:'login', component: PageLoginComponent },
   { path:'signup', component: PageSignupComponent },

@@ -12,7 +12,10 @@
           <input type="password" name="password" class="form-control" id="password" [(ngModel)]="password" placeholder="abcd1234">
       </div>
   </form>
-  <button class="btn btn-primary" (click)="sendLogin()">Bejelentkezek</button>
+  <button class="btn btn-primary" (click)="sendLogin()" [ngClass]="{'disabled': loginProgress || this.userService.isLoggedIn()}">Bejelentkezek</button> 
+  <div class="spinner-border" role="status" *ngIf="loginProgress">
+    <span class="sr-only">Loading...</span>
+  </div>
   </div>
 </div>
 </div>
