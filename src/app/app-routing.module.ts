@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path:'index', component: PageIndexComponent },
   { path:'quiz', component: PageQuizlistComponent },
-  { path:'leaderboard', component: PageLeaderboardComponent },
+  { path:'leaderboard/:quizId', component: PageLeaderboardComponent },
 
   { path:'login', component: PageLoginComponent },
   { path:'signup', component: PageSignupComponent },

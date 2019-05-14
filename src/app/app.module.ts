@@ -15,6 +15,7 @@ import { PageQuizfillComponent } from './page-quizfill/page-quizfill.component';
 import { PageLeaderboardComponent } from './page-leaderboard/page-leaderboard.component';
 import { PageLoginComponent } from './page-login/page-login.component';
 import { PageSignupComponent } from './page-signup/page-signup.component';
+import { PageQuizlistItemComponent } from './page-quizlist-item/page-quizlist-item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PageSignupComponent } from './page-signup/page-signup.component';
     PageQuizfillComponent,
     PageLeaderboardComponent,
     PageLoginComponent,
-    PageSignupComponent
+    PageSignupComponent,
+    PageQuizlistItemComponent
   ],
   imports: [
     BrowserModule,
