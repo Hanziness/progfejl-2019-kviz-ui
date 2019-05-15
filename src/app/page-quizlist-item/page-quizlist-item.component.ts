@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceUserService } from '../service-user.service';
 
 // interface QuizDescriptor {
 //   title : string,
@@ -25,7 +26,7 @@ export class PageQuizlistItemComponent implements OnInit {
   numquestions : number;
   title : String;
 
-  constructor() { }
+  constructor(private userService : ServiceUserService) {}
 
   ngOnInit() {
   }
