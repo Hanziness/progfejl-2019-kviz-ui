@@ -7,6 +7,7 @@ import { PageLoginComponent } from './page-login/page-login.component';
 import { PageSignupComponent } from './page-signup/page-signup.component';
 import { PageQuizfillComponent } from './page-quizfill/page-quizfill.component';
 import { ActivateUserService } from './activate-user.service';
+import { ActivateVisitorService } from './activate-visitor.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'index', pathMatch: 'full' },
@@ -15,8 +16,8 @@ const routes: Routes = [
   { path:'leaderboard/:quizId', component: PageLeaderboardComponent, canActivate: [ActivateUserService] },
   { path:'fill/:quizId', component: PageQuizfillComponent, canActivate: [ActivateUserService] },
 
-  { path:'login', component: PageLoginComponent },
-  { path:'signup', component: PageSignupComponent },
+  { path:'login', component: PageLoginComponent, canActivate: [ActivateVisitorService] },
+  { path:'signup', component: PageSignupComponent, canActivate: [ActivateVisitorService] },
 
   // TODO Maybe make an error component
   { path: '**', component: PageIndexComponent }
