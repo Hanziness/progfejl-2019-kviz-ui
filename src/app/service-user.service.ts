@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class ServiceUserService {
     let req = this.httpClient.post("http://localhost:5000/login", {
       username: username,
       password: password
-    }, { responseType: 'text' });
+    }, { responseType: 'text', withCredentials: true }).pipe(share());
 
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
@@ -40,7 +41,9 @@ export class ServiceUserService {
     let req = this.httpClient.post("http://localhost:5000/register", {
       username: username,
       password: password
-    }, { responseType: 'text', withCredentials: true });
+    }, { responseType: 'text' }).pipe(share());
+
+    
 
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
@@ -55,10 +58,18 @@ export class ServiceUserService {
   }
 
   public logout() : Observable<any> {
-    let req = this.httpClient.post("http://localhost:5000/logout", { }, { responseType: 'text', withCredentials: true});
+    let req = this.httpClient.post("http://localhost:5000/logout", { }, { 
+      responseType: 'text',
+      withCredentials: true,
+      headers : new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })}).pipe(share());
 
     req.subscribe((data) => {
       this.loggedInUserName = undefined;
+    }, (error) => {
+      this.loggedInUserName = undefined;
+      console.error("Failed to log out");
     });
 
     return req;

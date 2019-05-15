@@ -28,6 +28,7 @@ export class PageLoginComponent implements OnInit {
       this.navigateToQuiz();
       //this.loginProgress = false;
     });
+    // this.userService.login(this.username, this.password);
   }
 
   navigateToQuiz() {
