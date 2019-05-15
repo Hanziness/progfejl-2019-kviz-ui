@@ -13,8 +13,9 @@ export class ActivateUserService implements CanActivate {
 
   canActivate() : boolean {
     let isLoggedIn = this.userService.isLoggedIn();
+    console.debug("[ACTIVATE] User is logged in? " + isLoggedIn);
     if (!isLoggedIn) {
-      this.router.navigate(['']);
+      // this.router.navigate(['']);
     }
     return isLoggedIn;
   }
