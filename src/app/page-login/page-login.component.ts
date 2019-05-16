@@ -13,7 +13,8 @@ export class PageLoginComponent implements OnInit {
   password : string;
 
   // login control
-  loginProgress : boolean = false;;
+  loginProgress : boolean = false;
+  loginFailed : boolean = false;
 
   constructor(private userService : ServiceUserService, private router : Router) {
   }
@@ -23,10 +24,15 @@ export class PageLoginComponent implements OnInit {
 
   sendLogin() {
     this.loginProgress = true;
+    this.loginFailed = false;
     this.userService.login(this.username, this.password).subscribe((data: any) => {
       console.debug(data);
       this.navigateToQuiz();
       //this.loginProgress = false;
+    }, (error : any) => {
+      this.loginProgress = false;
+      this.loginFailed = true;
+      console.error(error);
     });
     // this.userService.login(this.username, this.password);
   }
