@@ -9,11 +9,19 @@ import { share } from 'rxjs/operators';
 export class ServiceUserService {
 
   loggedInUserName : string;
+  hasAdminRights : boolean;
 
   constructor(private httpClient : HttpClient) { }
 
   public isLoggedIn() : boolean {
     if (this.loggedInUserName) {
+      return true;
+    }
+    return false;
+  }
+
+  public isAdmin() : boolean {
+    if (this.hasAdminRights) {
       return true;
     }
     return false;
@@ -29,6 +37,10 @@ export class ServiceUserService {
       // localStorage.setItem("user", username);
       console.debug(data);
       this.loggedInUserName = username;
+
+      // TODO Get if user is admin!
+      console.debug("[LOGIN] Admin permissions are not yet checked!");
+      this.hasAdminRights = false;
     }, (error) => {
       console.error("Login failed:")
       console.error(error);
@@ -67,8 +79,10 @@ export class ServiceUserService {
 
     req.subscribe((data) => {
       this.loggedInUserName = undefined;
+      this.hasAdminRights = false;
     }, (error) => {
       this.loggedInUserName = undefined;
+      this.hasAdminRights = false;
       console.error("Failed to log out");
     });
 
