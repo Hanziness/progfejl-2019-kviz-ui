@@ -8,13 +8,16 @@ import { PageSignupComponent } from './page-signup/page-signup.component';
 import { PageQuizfillComponent } from './page-quizfill/page-quizfill.component';
 import { ActivateUserService } from './activate-user.service';
 import { ActivateVisitorService } from './activate-visitor.service';
+import { PageAdminCreateQuizComponent } from './page-admin-create-quiz/page-admin-create-quiz.component';
+import { ActivateAdminService } from './activate-admin.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'index', pathMatch: 'full' },
-  { path:'index', component: PageIndexComponent },
+  { path: 'index', redirectTo: '', pathMatch: 'full' },
+  { path:'', component: PageIndexComponent },
   { path:'quiz', component: PageQuizlistComponent },
   { path:'leaderboard/:quizId', component: PageLeaderboardComponent, canActivate: [ActivateUserService] },
   { path:'fill/:quizId', component: PageQuizfillComponent, canActivate: [ActivateUserService] },
+  { path:'admin', component: PageAdminCreateQuizComponent, canActivate: [ActivateAdminService] },
 
   { path:'login', component: PageLoginComponent, canActivate: [ActivateVisitorService] },
   { path:'signup', component: PageSignupComponent, canActivate: [ActivateVisitorService] },
