@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceUserService } from '../service-user.service';
 
 @Component({
   selector: 'app-page-index',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageIndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService : ServiceUserService) { }
 
   ngOnInit() {
   }

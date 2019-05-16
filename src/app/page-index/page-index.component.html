@@ -1,7 +1,7 @@
 <!-- Should only appear if the user is not logged in :) -->
-<app-welcome-hero></app-welcome-hero>
+<app-welcome-hero *ngIf="!this.userService.isLoggedIn()"></app-welcome-hero>
 
-<div class="container container-fluid text-center">
+<div class="container container-fluid text-center mt-3">
   <div class="row">
     <div class="col-lg">
       <h1 class="display-4"><i class="fas fa-question-circle"></i></h1><h3>Izgalmas kérdések</h3>
