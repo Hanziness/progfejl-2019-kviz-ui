@@ -1,5 +1,54 @@
-<div class="container mt-3">
-  <p>
-    page-admin-create-quiz works!
-  </p>
+<div class="container mt-3 mb-4">
+  <form>
+    <div class="form-group">
+      <label for="inputFormName">Űrlap neve</label>
+      <input type="text" name="inputQuizName" class="form-control" id="inputFormName" [(ngModel)]="quizName" placeholder="Kedves Űrlap" required>
+      <small class="form-text text-muted">Ez fog megjelenni minden felhasználó számára címként.</small>
+    </div>
+    <hr>
+    
+
+    <!-- Question: -->
+    <div class="form-group m-3 p-2 border-left border-secondary bg-light" *ngFor="let q of questions; let i = index" [attr.data-index]="i">
+      <!-- Delete question button -->
+      <button type="button float-right" class="close" aria-label="Close" (click)="deleteQuestion(i)">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <label>{{ i + 1 }}. kérdés</label>
+      <input type="text" name="q-{{i}}" class="form-control" placeholder="Szép kérdés" [(ngModel)]="q.leiras" required>
+
+      <!-- Answers: -->
+      <div class="mt-2 ml-2 p-2 border-left border-primary" *ngFor="let a of q.valaszok; let j = index" [attr.data-index]="j">
+        <div class="form-group">
+          <!-- Answer delete button -->
+          <button type="button float-right" class="close" aria-label="Close" (click)="deleteAnswer(q, j)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+          <label>{{ j + 1 }}. válasz</label>
+          <input type="text" name="q-{{i}}-a-{{j}}" class="form-control" placeholder="Válasz" [(ngModel)]="a.nev" required>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" name="q-{{i}}-a-{{j}}-accept" type="checkbox" value="" [(ngModel)]="a.helyes">
+          <label class="form-check-label">
+            Helyes
+          </label>
+        </div>
+      </div>
+
+      <!-- New answer button -->
+      <button class="mt-2 btn btn-outline-success btn-block btn-sm" (click)="addNewAnswer(q)"><i class="fas fa-plus"></i> Új válasz hozzáadása</button>
+    </div>
+
+    <!-- New question button -->
+    <button class="btn btn-outline-success btn-block" (click)="addNewQuestion()"><i class="fas fa-plus-circle"></i> Új kérdés hozzáadása</button>
+
+    <hr>
+
+    <button class="btn btn-outline-primary btn-block shadow-sm btn-lg" type="submit">Elküldés</button>
+
+    <!-- Debug button -->
+    <button class="btn btn-outline-primary btn-block shadow-sm btn-lg" (click)="debugQuiz()"><i class="fas fa-terminal"></i> Űrlap JSON</button>
+  </form>
 </div>
