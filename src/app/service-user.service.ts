@@ -11,7 +11,14 @@ export class ServiceUserService {
   loggedInUserName : string;
   hasAdminRights : boolean;
 
-  constructor(private httpClient : HttpClient) { }
+  constructor(private httpClient : HttpClient) { 
+    let u = localStorage.getItem('user');
+
+    if (u) {
+      this.loggedInUserName = u;
+      this.hasAdminRights = true; // TODO
+    }
+  }
 
   public isLoggedIn() : boolean {
     if (this.loggedInUserName) {
@@ -40,7 +47,8 @@ export class ServiceUserService {
 
       // TODO Get if user is admin!
       console.debug("[LOGIN] Admin permissions are not yet checked!");
-      this.hasAdminRights = false;
+      this.hasAdminRights = true;
+      localStorage.setItem('user', username);
     }, (error) => {
       console.error("Login failed:")
       console.error(error);
@@ -61,6 +69,7 @@ export class ServiceUserService {
       // localStorage.setItem("user", username);
       console.debug(data);
       this.loggedInUserName = username;
+      
     }, (error) => {
       console.error("Registration failed:")
       console.error(error);
@@ -80,9 +89,11 @@ export class ServiceUserService {
     req.subscribe((data) => {
       this.loggedInUserName = undefined;
       this.hasAdminRights = false;
+      localStorage.removeItem('user');
     }, (error) => {
       this.loggedInUserName = undefined;
       this.hasAdminRights = false;
+      localStorage.removeItem('user');
       console.error("Failed to log out");
     });
 
