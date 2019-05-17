@@ -12,6 +12,9 @@
       <li class="nav-item">
         <a [routerLink]="[ '/quiz' ]" routerLinkActive="active" class="nav-link">Kvízek</a>
       </li>
+      <li class="nav-item" *ngIf="this.userService.isAdmin()">
+        <a [routerLink]="[ '/admin' ]" routerLinkActive="active" class="nav-link">Új kvíz</a>
+      </li>
       <!-- <li class="nav-item">
         <a [routerLink]="[ '/leaderboard' ]" routerLinkActive="active" class="nav-link">Ranglista</a>
       </li> -->
