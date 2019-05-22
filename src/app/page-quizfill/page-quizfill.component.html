@@ -10,11 +10,15 @@
       </select>
     </div>
     <hr>
-    <button type="submit" *ngIf="!this.userService.hasAdminRights" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block" (click)="submitQuiz()"><i class="fas fa-check-circle"></i> Beküldés</button>
+    
+    <button type="submit" *ngIf="!this.userService.hasAdminRights && (quizPoints == undefined)" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block" [ngClass]="{disabled: quizPoints != undefined}" (click)="submitQuiz()"><i class="fas fa-check-circle"></i> Beküldés</button>
+    <button type="submit" *ngIf="!this.userService.hasAdminRights && (quizPoints != undefined)" class="shadow-sm btn btn-lg btn-outline-info mb-2 btn-block" [ngClass]="{disabled: quizPoints == undefined}" (click)="redirectToQuizzes()"><i class="fas fa-angle-double-left"></i> Vissza a kvízekhez</button>
+
     <button type="submit" *ngIf="this.userService.hasAdminRights" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block" (click)="testQuiz()"><i class="fas fa-check-double"></i> Kipróbálás</button>
 
     <div *ngIf="quizPoints != undefined" class="alert alert-info shadow-sm border border-info" role="alert">
-      <i class="fas fa-info-circle"></i> Ezzel a kitöltéssel <strong>{{ quizPoints }}</strong> pontot érnél el.
+      <span *ngIf="this.userService.hasAdminRights"><i class="fas fa-info-circle"></i> Ezzel a kitöltéssel <strong>{{ quizPoints }}</strong> pontot érnél el.</span>
+      <span *ngIf="!this.userService.hasAdminRights"><i class="fas fa-info-circle"></i> Ezzel a kitöltéssel <strong>{{ quizPoints }}</strong> pontot értél el.</span>
     </div>
   </form>
 </div>

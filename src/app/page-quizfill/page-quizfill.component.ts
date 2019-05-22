@@ -38,16 +38,24 @@ export class PageQuizfillComponent implements OnInit {
   }
 
   submitQuiz() {
-    console.debug(this.quizAnswers);
-    this.quizService.submitQuiz(this.quizAnswers, this.quizForm).subscribe((answer) => {
-      console.log(answer);
-      this.router.navigate(['/quiz']);
-    });
+    if (this.quizPoints == undefined) {
+      this.quizService.submitQuiz(this.quizAnswers, this.quizForm).subscribe((answer) => {
+        console.log(answer);
+        // this.router.navigate(['/quiz']);
+        this.quizPoints = this.quizService.evaluateQuiz(this.quizAnswers, this.quizForm);
+      });
+    } else {
+      console.warn("Quiz already submitted!");
+    }
   }
 
   testQuiz() {
     this.quizPoints = this.quizService.evaluateQuiz(this.quizAnswers, this.quizForm);
     console.debug(this.quizPoints);
+  }
+
+  redirectToQuizzes() {
+    this.router.navigate(['/quiz']);
   }
 
 }

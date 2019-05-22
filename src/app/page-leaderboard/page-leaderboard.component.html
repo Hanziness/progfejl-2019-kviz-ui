@@ -8,10 +8,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td scope="col">1</td>
-      <td scope="col">---</td>
-      <td scope="col"><i class="far fa-circle"></i></td>
+    <tr *ngFor="let item of leaderBoardList; let i = index">
+      <td scope="col">{{ i + 1 }}</td>
+      <td scope="col">{{ item.username }}</td>
+      <td scope="col">{{ item.score }}</td>
     </tr>
   </tbody>
 </table>

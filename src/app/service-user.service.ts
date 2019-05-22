@@ -3,6 +3,11 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 
+export interface LeaderboardEntry {
+  username : string,
+  score : number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +22,8 @@ export class ServiceUserService {
 
     if (u) {
       this.loggedInUserName = u;
-      this.hasAdminRights = true; // TODO
+      // this.hasAdminRights = true; // TODO
+      this.hasAdminRights = localStorage.getItem('admin') === '1';
     }
   }
 
@@ -50,10 +56,16 @@ export class ServiceUserService {
 
       console.debug("Logged in as admin? " + this.hasAdminRights);
 
-      // TODO Get if user is admin!
-      // console.debug("[LOGIN] Admin permissions are not yet checked!");
-      // this.hasAdminRights = true;
       localStorage.setItem('user', username);
+      let adminValue : string;
+
+      if (this.hasAdminRights) {
+        adminValue = '1';
+      } else {
+        adminValue = '0';
+      }
+
+      localStorage.setItem('admin', adminValue);
     }, (error) => {
       console.error("Login failed:")
       console.error(error);
@@ -101,6 +113,17 @@ export class ServiceUserService {
       localStorage.removeItem('user');
       console.error("Failed to log out");
     });
+
+    return req;
+  }
+
+  public getLeaderBoard() : Observable<any> {
+    let req = this.httpClient.get("http://localhost:5000/toplist", { 
+      responseType: 'json',
+      withCredentials: true,
+      headers : new HttpHeaders({
+        'Content-Type': 'application/x-www-form-urlencoded'
+    })}).pipe(share());
 
     return req;
   }
