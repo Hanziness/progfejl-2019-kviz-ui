@@ -20,6 +20,11 @@ export interface QuizDescriptor {
   numQuestions: number
 }
 
+export interface QuizDocument {
+  quiz_nev: string,
+  kerdesek: Array<Question>
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +37,30 @@ export class ServiceQuizService {
   };
 
   constructor(private httpClient: HttpClient, private userService : ServiceUserService) { }
+
+  public addNewQuiz(quizForm : QuizDocument) {
+    if (!this.userService.hasAdminRights) {
+      console.warn("Attempted to submit quiz while not an admin!");
+      return;
+    }
+
+    let req = this.httpClient.post("http://localhost:5000/newquiz", {
+      id: btoa(quizForm.quiz_nev),
+      name: quizForm.quiz_nev,
+      questions: quizForm.kerdesek
+    }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text',
+      withCredentials: true
+    }).pipe(share());
+
+    console.debug("User '" + this.userService.loggedInUserName + "' submitted a quiz with name " + quizForm.quiz_nev);
+    
+    return req;
+
+  }
 
   public submitQuiz(answers : Record<string, string>, quizObject : Record<string, Question>) : Observable<any> {
     let score = this.evaluateQuiz(answers, quizObject);

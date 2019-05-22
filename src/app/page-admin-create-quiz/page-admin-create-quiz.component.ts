@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Question } from '../service-quiz.service';
+import { Question, QuizDocument, ServiceQuizService } from '../service-quiz.service';
 
 /* 
   TODO There's a problem with array elements (when deleting and adding new ones)!
@@ -14,8 +14,9 @@ export class PageAdminCreateQuizComponent implements OnInit {
 
   questions : Question[] = [];
   quizName : string;
+  quizSubmitted : boolean;
 
-  constructor() { }
+  constructor(private quizService : ServiceQuizService) { }
 
   ngOnInit() {
   }
@@ -40,14 +41,17 @@ export class PageAdminCreateQuizComponent implements OnInit {
   /**
    * Turns the questions array into an associative array (ie. object)
    */
-  getQuizFromQuestions() {
-    let quiz = {};
+  getQuizFromQuestions() : QuizDocument {
+    let quiz : QuizDocument = {
+      quiz_nev: this.quizName,
+      kerdesek: []
+    };
+
+    quiz['kerdesek'] = [];
 
     this.questions.forEach((value, index) => {
-      quiz['q-' + index] = value;
+      quiz.kerdesek[index] = value;
     });
-
-    quiz['name'] = this.quizName;
 
     return quiz;
   }
@@ -62,6 +66,13 @@ export class PageAdminCreateQuizComponent implements OnInit {
 
   debugQuiz() {
     console.debug(this.getQuizFromQuestions());
+  }
+
+  submit() {
+    this.quizService.addNewQuiz(this.getQuizFromQuestions()).subscribe((data) => {
+      console.debug(data);
+      this.quizSubmitted = true;
+    });
   }
 
 }

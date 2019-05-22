@@ -46,9 +46,14 @@
 
     <hr>
 
-    <button class="btn btn-outline-primary btn-block shadow-sm btn-lg" type="submit">Elküldés</button>
+    <button class="btn btn-outline-primary btn-block shadow-sm btn-lg" (click)="submit()" type="submit">Elküldés</button>
 
     <!-- Debug button -->
     <button class="btn btn-outline-primary btn-block shadow-sm btn-lg" (click)="debugQuiz()"><i class="fas fa-terminal"></i> Űrlap JSON</button>
+
+    <!-- Alert for a successful submission -->
+    <div *ngIf="quizSubmitted" class="alert alert-info border border-info mt-3 shadow-sm">
+      <i class="fas fa-check-circle"></i> Sikeres beküldés!
+    </div>
   </form>
 </div>
