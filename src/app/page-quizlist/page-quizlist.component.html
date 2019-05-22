@@ -1,6 +1,6 @@
 <div class="container mt-3" >
   <!-- <app-page-quizlist-item title="Teszt kérdés" [numquestions]="42" qid="asd"></app-page-quizlist-item> -->
-  <div *ngIf="(this.userService.userPoints % 42) == 0" class="alert alert-warning border border-warning mb-3 shadow-sm">
+  <div *ngIf="(this.userService.userPoints % 42) === 0" class="alert alert-warning border border-warning mb-3 shadow-sm">
     <strong>Figyelem!</strong> Önnek kitöltendő kérdőíve van!
   </div>
 
