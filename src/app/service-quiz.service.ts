@@ -80,6 +80,10 @@ export class ServiceQuizService {
       withCredentials: true
     }).pipe(share());
 
+    req.subscribe(() => {
+      this.userService.userPoints += score;
+    });
+
     console.debug("User '" + this.userService.loggedInUserName + "' has earned a score of " + score);
     
     return req;
