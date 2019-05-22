@@ -16,6 +16,7 @@ export class ServiceUserService {
   loggedInUserName: string;
   hasAdminRights: boolean;
   userPoints: number;
+  justRegistered : boolean = false;
 
   constructor(private httpClient: HttpClient) { 
     let u = localStorage.getItem('user');
@@ -53,6 +54,7 @@ export class ServiceUserService {
       this.loggedInUserName = username;
       this.hasAdminRights = dataJson[0].admin;
       this.userPoints = dataJson[0].pontszam;
+      this.justRegistered = false;
 
       console.debug("Logged in as admin? " + this.hasAdminRights);
 
@@ -85,7 +87,8 @@ export class ServiceUserService {
     req.subscribe((data) => {
       // localStorage.setItem("user", username);
       console.debug(data);
-      this.loggedInUserName = username;
+      this.justRegistered = true;
+      // this.loggedInUserName = username;
       
     }, (error) => {
       console.error("Registration failed:");

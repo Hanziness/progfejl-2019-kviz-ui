@@ -40,7 +40,7 @@ export class PageQuizfillComponent implements OnInit {
   submitQuiz() {
     if (this.quizPoints == undefined) {
       this.quizService.submitQuiz(this.quizAnswers, this.quizForm).subscribe((answer) => {
-        console.log(answer);
+        // console.log(answer);
         // this.router.navigate(['/quiz']);
         this.quizPoints = this.quizService.evaluateQuiz(this.quizAnswers, this.quizForm);
       });
@@ -51,7 +51,7 @@ export class PageQuizfillComponent implements OnInit {
 
   testQuiz() {
     this.quizPoints = this.quizService.evaluateQuiz(this.quizAnswers, this.quizForm);
-    console.debug(this.quizPoints);
+    // console.debug(this.quizPoints);
   }
 
   redirectToQuizzes() {

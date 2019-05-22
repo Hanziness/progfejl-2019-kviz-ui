@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceQuizService, QuizDescriptor } from '../service-quiz.service';
+import { ServiceUserService } from '../service-user.service';
 
 @Component({
   selector: 'app-page-quizlist',
@@ -11,7 +12,7 @@ export class PageQuizlistComponent implements OnInit {
 
   quizzes : QuizDescriptor[] = [];
 
-  constructor(private quizService : ServiceQuizService) { }
+  constructor(private quizService : ServiceQuizService, private userService : ServiceUserService) { }
 
   ngOnInit() {
     this.getQuizList();

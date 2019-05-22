@@ -5,6 +5,9 @@
     <div class="alert alert-danger" role="alert" *ngIf="loginFailed">
       Sikertelen bejelentkezés!
     </div>
+    <div class="alert alert-success border border-success" role="alert" *ngIf="this.userService.justRegistered">
+      <i class="fas fa-info-circle"></i>&nbsp; <strong>Sikeres regisztráció!</strong> Most már bejelentkezhetsz.
+    </div>
   <form>
       <div class="form-group">
         <label for="text">Név</label>

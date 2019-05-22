@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceRegisterDatashareService } from "../service-register-datashare.service";
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ServiceUserService } from '../service-user.service';
+import { Router } from '@angular/router';
 
 interface FormData {
   username : string,
@@ -21,7 +22,10 @@ export class PageSignupComponent implements OnInit {
 
   formGroup : FormGroup;
 
-  constructor(private dataShareService : ServiceRegisterDatashareService, private userService : ServiceUserService) { }
+  constructor(
+    private dataShareService : ServiceRegisterDatashareService,
+    private userService : ServiceUserService,
+    private router : Router) { }
 
   ngOnInit() {
     this.formData = {
@@ -43,7 +47,9 @@ export class PageSignupComponent implements OnInit {
 
   doRegister() {
     if (this.formData.username && this.formData.password) {
-      this.userService.register(this.formData.username, this.formData.password);
+      this.userService.register(this.formData.username, this.formData.password).subscribe(() => {
+        this.router.navigate(['/login']);
+      });
     } else {
       console.warn("Form data was not valid!");
       console.warn(this.formData);

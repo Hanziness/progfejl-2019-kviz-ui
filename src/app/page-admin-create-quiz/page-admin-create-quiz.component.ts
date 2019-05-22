@@ -70,7 +70,7 @@ export class PageAdminCreateQuizComponent implements OnInit {
 
   submit() {
     this.quizService.addNewQuiz(this.getQuizFromQuestions()).subscribe((data) => {
-      console.debug(data);
+      // console.debug(data);
       this.quizSubmitted = true;
     });
   }

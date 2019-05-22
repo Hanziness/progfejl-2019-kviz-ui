@@ -25,6 +25,7 @@ export class PageLoginComponent implements OnInit {
   sendLogin() {
     this.loginProgress = true;
     this.loginFailed = false;
+    this.userService.justRegistered = false;
     this.userService.login(this.username, this.password).subscribe((data: any) => {
       console.debug(data);
       this.navigateToQuiz();

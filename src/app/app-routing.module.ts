@@ -14,7 +14,7 @@ import { ActivateAdminService } from './activate-admin.service';
 const routes: Routes = [
   { path: 'index', redirectTo: '', pathMatch: 'full' },
   { path:'', component: PageIndexComponent },
-  { path:'quiz', component: PageQuizlistComponent },
+  { path:'quiz', component: PageQuizlistComponent, canActivate: [ActivateUserService] },
   { path:'leaderboard', component: PageLeaderboardComponent, canActivate: [ActivateUserService] },
   { path:'fill/:quizId', component: PageQuizfillComponent, canActivate: [ActivateUserService] },
   { path:'admin', component: PageAdminCreateQuizComponent, canActivate: [ActivateAdminService] },

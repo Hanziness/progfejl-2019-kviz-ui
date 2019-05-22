@@ -120,10 +120,10 @@ export class ServiceQuizService {
       params: { id: qId }
     }).pipe(share());
 
-    req.subscribe((data : any) => {
-      console.debug("Received a quiz that looks like this:");
-      console.debug(data);
-    });
+    // req.subscribe((data : any) => {
+    //   console.debug("Received a quiz that looks like this:");
+    //   console.debug(data);
+    // });
 
     return req;
   }
