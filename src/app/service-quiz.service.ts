@@ -104,7 +104,24 @@ export class ServiceQuizService {
     return score;
   }
 
-  public getQuizList = () : Observable<Object> => {
+  public deleteQuiz(qId : string) {
+    let req = this.httpClient.post("http://localhost:5000/deletequiz", {
+      id: qId
+    }, {
+      withCredentials: true,
+      responseType: 'text',
+      params: { id: qId }
+    }).pipe(share());
+
+    req.subscribe((data : any) => {
+      console.debug("Quiz deletion result: ");
+      console.debug(data);
+    });
+
+    return req;
+  }
+
+  public getQuizList() : Observable<Object> {
     let req = this.httpClient.get("http://localhost:5000/allquiz", {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -117,7 +134,7 @@ export class ServiceQuizService {
 
   }
 
-  public getQuizForm = (qId : string) : Observable<Object> => {
+  public getQuizForm(qId : string) : Observable<Object> {
     let req = this.httpClient.get("http://localhost:5000/quiz", {
       withCredentials: true,
       responseType: 'json',
@@ -132,7 +149,7 @@ export class ServiceQuizService {
     return req;
   }
 
-  returnDummyQuiz = function() : Record<string, Question> {
+  returnDummyQuiz() : Record<string, Question> {
     return {
       "kerdes1": {
           "leiras": "Válaszd ki a macskát!",

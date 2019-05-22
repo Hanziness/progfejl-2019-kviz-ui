@@ -9,7 +9,6 @@ import { ServiceUserService } from '../service-user.service';
 })
 export class PageQuizlistComponent implements OnInit {
 
-
   quizzes : QuizDescriptor[] = [];
 
   constructor(private quizService : ServiceQuizService, private userService : ServiceUserService) { }

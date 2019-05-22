@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModule, NgbModalModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { WelcomeHeroComponent } from './welcome-hero/welcome-hero.component';

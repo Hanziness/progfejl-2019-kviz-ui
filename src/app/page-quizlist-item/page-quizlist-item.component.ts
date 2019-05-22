@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceUserService } from '../service-user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ServiceQuizService } from '../service-quiz.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // interface QuizDescriptor {
 //   title : string,
@@ -22,13 +25,33 @@ export class PageQuizlistItemComponent implements OnInit {
     qId : "asd"
   };
   */
-  qid : String;
+  deleted : boolean = false;
+  qid : string;
   numquestions : number;
   title : String;
 
-  constructor(private userService : ServiceUserService) {}
+  constructor(
+    private userService : ServiceUserService,
+    private modalService : NgbModal,
+    private quizService : ServiceQuizService,
+    private router : Router) {}
 
   ngOnInit() {
+  }
+
+  openDeleteModal(content) {
+    this.modalService.open(content, {centered : true, windowClass: 'shadow-lg'}).result.then((res) => {
+      if (res === 'delete') {
+        this.deleteQuiz();
+      }
+    });
+  }
+
+  deleteQuiz() {
+    this.quizService.deleteQuiz(this.qid).subscribe((res) => {
+      this.router.navigate([this.router.url]); // reload the view
+      this.deleted = true;
+    });
   }
 
 }
