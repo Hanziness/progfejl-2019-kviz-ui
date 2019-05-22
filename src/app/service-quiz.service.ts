@@ -33,7 +33,30 @@ export class ServiceQuizService {
 
   constructor(private httpClient: HttpClient, private userService : ServiceUserService) { }
 
-  public submitQuiz(qId : string, answers : Record<string, string>, quizObject : Record<string, Question>) : Observable<any> {
+  public submitQuiz(answers : Record<string, string>, quizObject : Record<string, Question>) : Observable<any> {
+    let score = this.evaluateQuiz(answers, quizObject);
+
+    if (this.userService.hasAdminRights) {
+      return null;
+    }
+
+    let req = this.httpClient.post("http://localhost:5000/sendscore", {
+      username: this.userService.loggedInUserName,
+      score: score
+    }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      responseType: 'text',
+      withCredentials: true
+    }).pipe(share());
+
+    console.debug("User '" + this.userService.loggedInUserName + "' has earned a score of " + score);
+    
+    return req;
+  }
+
+  public evaluateQuiz(answers: Record<string, string>, quizObject : Record<string, Question>) : number {
     let score : number = 0;
 
     // Evaluate quiz
@@ -45,10 +68,7 @@ export class ServiceQuizService {
       });
     });
 
-    return this.httpClient.post("http://localhost:5000", {
-      username: this.userService.loggedInUserName,
-      score: score
-    }, this.httpOptionsJSON);
+    return score;
   }
 
   public getQuizList = () : Observable<Object> => {

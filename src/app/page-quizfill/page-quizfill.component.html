@@ -3,13 +3,18 @@
   <form>
     <div class="form-group" *ngFor="let q of objectKeys(quizForm)">
       <label>{{ quizForm[q].leiras }}</label>
-      <select class="form-control" name="{{ q }}">
+      <select class="form-control" name="{{ q }}" [(ngModel)]="quizAnswers[q]">
         <option *ngFor="let answer of quizForm[q].valaszok">
           {{ answer.nev }}
         </option>
       </select>
     </div>
     <hr>
-    <button type="submit" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block"><i class="fas fa-check-circle"></i> Beküldés</button>
+    <button type="submit" *ngIf="!this.userService.hasAdminRights" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block" (click)="submitQuiz()"><i class="fas fa-check-circle"></i> Beküldés</button>
+    <button type="submit" *ngIf="this.userService.hasAdminRights" class="shadow-sm btn btn-lg btn-outline-primary mb-2 btn-block" (click)="testQuiz()"><i class="fas fa-check-double"></i> Kipróbálás</button>
+
+    <div *ngIf="quizPoints != undefined" class="alert alert-info shadow-sm border border-info" role="alert">
+      <i class="fas fa-info-circle"></i> Ezzel a kitöltéssel <strong>{{ quizPoints }}</strong> pontot érnél el.
+    </div>
   </form>
 </div>

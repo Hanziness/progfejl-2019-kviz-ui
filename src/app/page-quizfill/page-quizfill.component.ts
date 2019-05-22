@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question, ServiceQuizService } from '../service-quiz.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ServiceUserService } from '../service-user.service';
 
 @Component({
   selector: 'app-page-quizfill',
@@ -14,8 +15,14 @@ export class PageQuizfillComponent implements OnInit {
   qid : string;
   quizForm : Record<string, Question> = {};
   quizTitle : string = "";
+  quizAnswers : Record<string, string> = {};
+  quizPoints? : number;
 
-  constructor(private quizService : ServiceQuizService, private actRoute : ActivatedRoute) { 
+  constructor(
+    private quizService : ServiceQuizService, 
+    private actRoute : ActivatedRoute, 
+    private router : Router,
+    private userService : ServiceUserService) { 
   }
 
   ngOnInit() {
@@ -23,11 +30,24 @@ export class PageQuizfillComponent implements OnInit {
       this.qid = params['quizId'];
       this.quizService.getQuizForm(this.qid).subscribe((data : any) => {
         console.debug(this.qid);
-        console.debug(data);
         this.quizForm = data.kerdesek as Record<string, Question>;
         this.quizTitle = data.quiz_nev;
+        console.debug(this.quizForm);
       });
     })
+  }
+
+  submitQuiz() {
+    console.debug(this.quizAnswers);
+    this.quizService.submitQuiz(this.quizAnswers, this.quizForm).subscribe((answer) => {
+      console.log(answer);
+      this.router.navigate(['/quiz']);
+    });
+  }
+
+  testQuiz() {
+    this.quizPoints = this.quizService.evaluateQuiz(this.quizAnswers, this.quizForm);
+    console.debug(this.quizPoints);
   }
 
 }
