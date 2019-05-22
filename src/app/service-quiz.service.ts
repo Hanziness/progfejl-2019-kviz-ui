@@ -84,7 +84,7 @@ export class ServiceQuizService {
       this.userService.userPoints += score;
     });
 
-    console.debug("User '" + this.userService.loggedInUserName + "' has earned a score of " + score);
+    console.debug("User '" + this.userService.loggedInUserName + "' has earned a score of " + score + " and now has " + this.userService.userPoints + " points.");
     
     return req;
   }
@@ -147,6 +147,21 @@ export class ServiceQuizService {
     // });
 
     return req;
+  }
+
+  public shuffleQuiz(quiz : Record<string, Question>) {
+    Object.keys(quiz).forEach((index) => {
+      quiz[index].valaszok = this.shuffleArray(quiz[index].valaszok);
+    });
+  }
+
+  public shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
   }
 
   returnDummyQuiz() : Record<string, Question> {

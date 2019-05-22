@@ -31,6 +31,7 @@ export class PageQuizfillComponent implements OnInit {
       this.quizService.getQuizForm(this.qid).subscribe((data : any) => {
         console.debug(this.qid);
         this.quizForm = data.kerdesek as Record<string, Question>;
+        this.quizService.shuffleQuiz(this.quizForm);
         this.quizTitle = data.quiz_nev;
         console.debug(this.quizForm);
       });

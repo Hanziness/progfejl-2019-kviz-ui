@@ -25,6 +25,7 @@ export class ServiceUserService {
       this.loggedInUserName = u;
       // this.hasAdminRights = true; // TODO
       this.hasAdminRights = localStorage.getItem('admin') === '1';
+      this.userPoints = Number.parseInt(localStorage.getItem('points'));
     }
   }
 
@@ -68,6 +69,7 @@ export class ServiceUserService {
       }
 
       localStorage.setItem('admin', adminValue);
+      localStorage.setItem('points', this.userPoints.toString());
     }, (error) => {
       console.error("Login failed:")
       console.error(error);
