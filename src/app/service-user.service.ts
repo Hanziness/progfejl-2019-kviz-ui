@@ -8,10 +8,11 @@ import { share } from 'rxjs/operators';
 })
 export class ServiceUserService {
 
-  loggedInUserName : string;
-  hasAdminRights : boolean;
+  loggedInUserName: string;
+  hasAdminRights: boolean;
+  userPoints: number;
 
-  constructor(private httpClient : HttpClient) { 
+  constructor(private httpClient: HttpClient) { 
     let u = localStorage.getItem('user');
 
     if (u) {
@@ -20,34 +21,38 @@ export class ServiceUserService {
     }
   }
 
-  public isLoggedIn() : boolean {
+  public isLoggedIn(): boolean {
     if (this.loggedInUserName) {
       return true;
     }
     return false;
   }
 
-  public isAdmin() : boolean {
+  public isAdmin(): boolean {
     if (this.hasAdminRights) {
       return true;
     }
     return false;
   }
 
-  public login(username: string, password: string) : Observable<any> {
+  public login(username: string, password: string): Observable<any> {
     let req = this.httpClient.post("http://localhost:5000/login", {
       username: username,
       password: password
     }, { responseType: 'text', withCredentials: true }).pipe(share());
 
-    req.subscribe((data) => {
+    req.subscribe((data : string) => {
       // localStorage.setItem("user", username);
-      console.debug(data);
+      const dataJson = JSON.parse(data);
       this.loggedInUserName = username;
+      this.hasAdminRights = dataJson[0].admin;
+      this.userPoints = dataJson[0].pontszam;
+
+      console.debug("Logged in as admin? " + this.hasAdminRights);
 
       // TODO Get if user is admin!
-      console.debug("[LOGIN] Admin permissions are not yet checked!");
-      this.hasAdminRights = true;
+      // console.debug("[LOGIN] Admin permissions are not yet checked!");
+      // this.hasAdminRights = true;
       localStorage.setItem('user', username);
     }, (error) => {
       console.error("Login failed:")
@@ -57,7 +62,7 @@ export class ServiceUserService {
     return req;
   }
 
-  public register(username: string, password: string) : Observable<any> {
+  public register(username: string, password: string): Observable<any> {
     let req = this.httpClient.post("http://localhost:5000/register", {
       username: username,
       password: password
@@ -71,14 +76,14 @@ export class ServiceUserService {
       this.loggedInUserName = username;
       
     }, (error) => {
-      console.error("Registration failed:")
+      console.error("Registration failed:");
       console.error(error);
     });
 
     return req;
   }
 
-  public logout() : Observable<any> {
+  public logout(): Observable<any> {
     let req = this.httpClient.post("http://localhost:5000/logout", { }, { 
       responseType: 'text',
       withCredentials: true,

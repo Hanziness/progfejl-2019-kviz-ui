@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ServiceUserService } from './service-user.service';
 import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
 
 export interface Question {
   leiras: string,
@@ -11,6 +12,12 @@ export interface Question {
 export interface Answer {
   nev: string,
   helyes: boolean
+}
+
+export interface QuizDescriptor {
+  title: string,
+  qId: string,
+  numQuestions: number
 }
 
 @Injectable({
@@ -44,17 +51,32 @@ export class ServiceQuizService {
     }, this.httpOptionsJSON);
   }
 
-  public getQuizForm = function(qId : string) : Record<string, Question> {
+  public getQuizList = () : Observable<Object> => {
+    let req = this.httpClient.get("http://localhost:5000/allquiz", {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      withCredentials: true,
+      responseType: 'json'
+    });
+
+    return req;
+
+  }
+
+  public getQuizForm = (qId : string) : Observable<Object> => {
     let req = this.httpClient.get("http://localhost:5000/quiz", {
-      name: qId
-    }, this.httpOptionsJSON);
+      withCredentials: true,
+      responseType: 'json',
+      params: { id: qId }
+    }).pipe(share());
 
     req.subscribe((data : any) => {
       console.debug("Received a quiz that looks like this:");
       console.debug(data);
     });
 
-    return this.returnDummyQuiz();
+    return req;
   }
 
   returnDummyQuiz = function() : Record<string, Question> {

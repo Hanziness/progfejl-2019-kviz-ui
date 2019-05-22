@@ -1,3 +1,4 @@
-<div class="container mt-3">
-  <app-page-quizlist-item title="Teszt kérdés" [numquestions]="42" qid="asd"></app-page-quizlist-item>
+<div class="container mt-3" >
+  <!-- <app-page-quizlist-item title="Teszt kérdés" [numquestions]="42" qid="asd"></app-page-quizlist-item> -->
+  <app-page-quizlist-item *ngFor="let q of quizzes" title="{{q.title}}" [numquestions]="q.numQuestions" qid="{{q.qId}}"></app-page-quizlist-item>
 </div>
